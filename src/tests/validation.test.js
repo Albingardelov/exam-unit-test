@@ -33,4 +33,30 @@ describe('Validation', () => {
 
 	// 3. it returns true for a valid product
 	// 4. it returns false for invalid cart objects
+
+	describe('isProduct', () => {
+		test('returns true for a valid product', () => {
+			expect(isProduct(exampleProduct)).toBe(true)
+		})
+
+		test('returns false for invalid products', () => {
+			expect(isProduct({})).toBe(false)
+			expect(isProduct(null)).toBe(false)
+			expect(isProduct({ id: '1', name: 'Test', price: 100 })).toBe(false)
+		})
+	})
+
+	describe('isCartItem', () => {
+		test('returns true for a valid cart item', () => {
+			expect(isCartItem(exampleCartObject)).toBe(true)
+		})
+
+		test('returns false for invalid cart items', () => {
+			expect(isCartItem({})).toBe(false)
+			expect(isCartItem(null)).toBe(false)
+			expect(isCartItem({ id: 1, amount: 1 })).toBe(false)  // saknar item
+			expect(isCartItem({ id: 1, item: exampleProduct })).toBe(false)  // saknar amount
+			expect(isCartItem({ amount: 1, item: exampleProduct })).toBe(false)  // saknar id
+		})
+	})
 })
